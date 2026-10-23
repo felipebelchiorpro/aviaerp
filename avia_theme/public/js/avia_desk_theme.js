@@ -10,6 +10,14 @@
   // 1. Intercepta e normaliza boot info e helpers do Frappe
   function patchFrappeAppMeta() {
     if (window.frappe && frappe.boot) {
+      if (frappe.boot.apps_data && Array.isArray(frappe.boot.apps_data.apps)) {
+        frappe.boot.apps_data.apps.forEach(function (app) {
+          if (app.name === "erpnext" || app.title === "ERPNext") {
+            app.title = "AVIA";
+            app.logo = "/assets/avia_theme/images/avia_app_icon.png";
+          }
+        });
+      }
       if (Array.isArray(frappe.boot.app_data)) {
         frappe.boot.app_data.forEach(function (app) {
           if (app.app_name === "erpnext" || app.app_title === "ERPNext") {
